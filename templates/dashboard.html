@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head><link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head>
+<body>
+    <div class="nav-bar">
+        <div>Welcome!</div>
+        <div class="nav-links">
+            <a href="/">Dashboard</a>
+            <a href="/budget-status">Budget Status</a>
+            <a href="/history">History</a>
+            <a href="/logout">Logout</a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="card">
+            <h1>BUDGET SUMMARY: {{ year }}</h1>
+            <div class="summary-banner">
+                <p>TOTAL SPENT THIS MONTH</p>
+                <h2>₹{{ total }}</h2>
+            </div>
+            
+            <div class="btn-group" style="display:flex; gap:20px; margin-bottom:40px;">
+                <a href="/add" class="btn" style="text-decoration:none;">+ ADD EXPENSE</a>
+                <a href="/set-budget" class="btn btn-secondary" style="text-decoration:none;">SET MONTHLY BUDGET</a>
+            </div>
+
+            <div class="recent-activity">
+                <h3 style="color: var(--dark-navy); border-bottom: 2px solid var(--bg-color); padding-bottom: 10px;">RECENT ACTIVITY</h3>
+                <table style="box-shadow: none; margin-top: 10px;">
+                    {% if recent %}
+                        {% for item in recent %}
+                        <tr>
+                            <td>{{ item.date }}</td>
+                            <td><strong>{{ item.title }}</strong></td>
+                            <td>{{ item.category }}</td>
+                            <td style="text-align: right; font-weight: bold;">₹{{ item.amount }}</td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr><td colspan="4" style="text-align: center; color: var(--slate-grey);">No recent expenses.</td></tr>
+                    {% endif %}
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

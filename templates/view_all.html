@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head><link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head>
+<body>
+    <div class="nav-bar">
+        <div style="font-size:22px;">EXPENSE TRACKER PRO</div>
+        <div><a href="/">Dashboard</a><a href="/all-expenses">Transactions</a><a href="/logout">Logout</a></div>
+    </div>
+    <div class="container">
+        <div class="card">
+            <h1>All Transactions</h1>
+            <form method="GET" style="display:flex; gap:10px;">
+                <input type="text" name="search" placeholder="Search by title...">
+                <button type="submit" class="btn" style="width:150px;">Search</button>
+            </form>
+            <table>
+                <tr><th>Date</th><th>Title</th><th>Category</th><th>Amount</th><th>Actions</th></tr>
+                {% for e in expenses %}
+                <tr>
+                    <td>{{ e.date }}</td><td>{{ e.title }}</td><td>{{ e.category }}</td><td>₹{{ e.amount }}</td>
+                    <td>
+                        <a href="/edit/{{ e.id }}" class="action-link" style="color:var(--mid);">EDIT</a>
+                        <a href="/delete/{{ e.id }}" class="action-link" style="color:var(--accent);" onclick="return confirm('Confirm Delete?')">DELETE</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</body>
+</html>

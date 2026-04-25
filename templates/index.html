@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Expense Tracker</title>
+    <style>
+        body { background-color: #dee6ed; font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; padding: 40px; }
+        .container { width: 100%; max-width: 800px; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .header { display: flex; justify-content: space-between; align-items: center; border-left: 8px solid #8b3a3a; padding-left: 15px; margin-bottom: 20px; }
+        h1 { color: #2c3647; margin: 0; }
+        form { background: #f9f9f9; padding: 20px; border-radius: 8px; margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap; }
+        input, select, button { padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+        button { background: #2c3647; color: white; border: none; cursor: pointer; font-weight: bold; }
+        table { width: 100%; border-collapse: collapse; }
+        th { background: #5a7086; color: white; padding: 12px; text-align: left; }
+        td { padding: 12px; border-bottom: 1px solid #eee; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>EXPENSE TRACKER</h1>
+            <span>{{ username }} | <a href="/logout" style="color:#8b3a3a;">Logout</a></span>
+        </div>
+
+        <form action="/add" method="POST">
+            <input type="text" name="title" placeholder="Item" required>
+            <input type="number" name="amount" placeholder="Amount" required>
+            <select name="category">
+                <option value="Food">Food</option>
+                <option value="Bills">Bills</option>
+                <option value="Shopping">Shopping</option>
+            </select>
+            <input type="date" name="date" required>
+            <button type="submit">Add Expense</button>
+        </form>
+
+        <table>
+            <tr><th>Date</th><th>Title</th><th>Category</th><th>Amount</th><th>Action</th></tr>
+            {% for e in expenses %}
+            <tr>
+                <td>{{ e.date }}</td><td>{{ e.title }}</td><td>{{ e.category }}</td><td>₹{{ e.amount }}</td>
+                <td><a href="/delete/{{ e.id }}" style="color:red; text-decoration:none;">Delete</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>

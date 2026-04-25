@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head><link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>EXPENSE HISTORY</h1>
+            <table>
+                <tr><th>Date</th><th>Category</th><th>Title</th><th>Amount</th><th>Actions</th></tr>
+                {% for e in expenses %}
+                <tr>
+                    <td>{{ e.date }}</td>
+                    <td>{{ e.category }}</td>
+                    <td>{{ e.title }}</td>
+                    <td style="font-weight: bold;">₹{{ e.amount }}</td>
+                    <td>
+                        <div style="display: flex; gap: 5px;">
+                            <a href="/edit/{{ e.id }}" class="btn-action btn-edit">Edit</a>
+                            <a href="/delete/{{ e.id }}" class="btn-action btn-del" onclick="return confirm('Delete this?')">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+            <br><a href="/" class="btn" style="text-decoration:none; text-align:center; display:block;">BACK TO DASHBOARD</a>
+        </div>
+    </div>
+</body>
+</html>

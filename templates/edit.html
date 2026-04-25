@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head><link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head>
+<body>
+    <div class="container">
+        <div class="card form-box">
+            <h1>Update Expense</h1>
+            <form method="POST">
+                <input type="text" name="title" value="{{ expense.title }}" required>
+                <input type="number" name="amount" value="{{ expense.amount }}" required>
+                <select name="category">
+                    <option value="Needs" {% if expense.category == 'Needs' %}selected{% endif %}>Needs</option>
+                    <option value="Wants" {% if expense.category == 'Wants' %}selected{% endif %}>Wants</option>
+                    <option value="Savings" {% if expense.category == 'Savings' %}selected{% endif %}>Savings</option>
+                </select>
+                <input type="date" name="date" value="{{ expense.date }}" required>
+                <button type="submit" class="btn">Apply Changes</button>
+                <p style="text-align:center;"><a href="/all-expenses" style="color:var(--mid);">Cancel</a></p>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

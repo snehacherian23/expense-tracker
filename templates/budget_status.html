@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head><link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>BUDGET STATUS: {{ month }}</h1>
+            
+            <form method="GET" action="/budget-status" style="display:flex; gap:10px; margin-bottom:20px; background:none; padding:0;">
+                <select name="month" style="width: auto; flex-grow: 1;">
+                    <option value="January">January</option><option value="February">February</option>
+                    <option value="March">March</option><option value="April">April</option>
+                    <option value="May">May</option><option value="June">June</option>
+                    <option value="July">July</option><option value="August">August</option>
+                    <option value="September">September</option><option value="October">October</option>
+                    <option value="November">November</option><option value="December">December</option>
+                </select>
+                <button type="submit" class="btn" style="width: auto;">Filter Report</button>
+            </form>
+
+            <div style="background:#f1c4e1; padding:15px; border-radius:8px; font-weight:bold; text-align:center; margin-bottom: 20px;">
+                TOTAL SPENT IN {{ month }}: ₹{{ total }}
+            </div>
+
+            <table>
+                <tr><th>Category</th><th>Budget</th><th>Spent</th><th>Status</th></tr>
+                {% for item in data %}
+                <tr>
+                    <td>{{ item.category }}</td>
+                    <td>₹{{ item.budget }}</td>
+                    <td>₹{{ item.spent }}</td>
+                    <td style="font-weight:bold; color:{% if item.spent > item.budget %}var(--accent-red){% else %}green{% endif %};">
+                        {% if item.spent > item.budget %}OVER BUDGET{% else %}REMAINING: ₹{{ item.budget - item.spent }}{% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+            <br><a href="/" class="btn" style="text-decoration:none; text-align:center; display:block;">BACK TO DASHBOARD</a>
+        </div>
+    </div>
+</body>
+</html>
